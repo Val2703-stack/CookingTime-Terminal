@@ -11,7 +11,6 @@ def display():
     # --- Chargement du CSV ---
     try:
         df = pd.read_csv(csv_path)
-        st.success(f"Fichier chargé : {csv_path}")
     except Exception as e:
         st.error(f"Erreur de chargement du fichier CSV : {e}")
         st.stop()
