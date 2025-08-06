@@ -1,11 +1,14 @@
 import streamlit as st
 import pandas as pd
+import os
+
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+csv_path = os.path.join(CURRENT_DIR, "data", "sentiment.csv")
 
 def display():
     st.title("📊 Sentiment Retail (Myfxbook)")
 
     # --- Chargement du CSV ---
-    csv_path = "data/sentiment.csv"
     try:
         df = pd.read_csv(csv_path)
         st.success(f"Fichier chargé : {csv_path}")
