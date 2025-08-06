@@ -4,3 +4,4 @@ yfinance
 plotly
 matplotlib
 bs4
+lxlm
