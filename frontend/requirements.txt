@@ -3,3 +3,5 @@ pandas
 yfinance
 plotly
 matplotlib
+bs4
+lxml
