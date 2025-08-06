@@ -15,7 +15,7 @@ st.set_page_config(
 )
 
 # --- Barre latérale de navigation ---
-st.sidebar.title("🧑‍💻 Menu CookingTime Terminal")
+st.sidebar.title("CookingTime Terminal🧑‍🍳")
 
 menu = st.sidebar.radio(
     "Navigation",

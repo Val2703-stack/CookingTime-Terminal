@@ -3,24 +3,29 @@ import pandas as pd
 import plotly.graph_objects as go
 import os
 
-def display():
-    CSV_PATH = r"E:\VS code\Terminal Perso\frontend\data\cot_financial_full.csv"
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+CSV_PATH = os.path.join(CURRENT_DIR, "data", "cot_financial_full.csv")
 
-    @st.cache_data
-    def load_data(csv_path):
-        if not os.path.exists(csv_path):
-            st.error(f"Fichier non trouvé : {csv_path}")
-            return None
-        df = pd.read_csv(csv_path, dtype={'As_of_Date_In_Form_YYMMDD': str})
-        df['Date'] = pd.to_datetime(df['As_of_Date_In_Form_YYMMDD'], format='%y%m%d')
-        return df
+@st.cache_data
+def load_data(csv_path):
+    if not os.path.exists(csv_path):
+        st.error(f"Fichier non trouvé : {csv_path}")
+        return None
+    df = pd.read_csv(csv_path, dtype={'As_of_Date_In_Form_YYMMDD': str})
+    df['Date'] = pd.to_datetime(df['As_of_Date_In_Form_YYMMDD'], format='%y%m%d')
+    return df
 
-    def format_number(x):
-        if abs(x) >= 1_000_000:
-            return f"{x/1_000_000:.1f}M"
-        if abs(x) >= 1_000:
-            return f"{x/1_000:.1f}K"
-        return str(x)
+df = load_data(CSV_PATH)
+
+def format_number(x):
+    if abs(x) >= 1_000_000:
+        return f"{x/1_000_000:.1f}M"
+    if abs(x) >= 1_000:
+        return f"{x/1_000:.1f}K"
+    return str(x)
+
+def display(): 
+    df = load_data(CSV_PATH)
 
     ASSET_CLASSES = {
     # FX (Devises)
