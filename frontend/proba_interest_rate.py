@@ -72,7 +72,44 @@ def display():
             st.markdown(f"**Prix du future** : {fed_monitor['future_price']}")
         if fed_monitor.get("rates"):
             st.subheader("Probabilités de taux (%)")
-            st.table([{ "Range": r["range"], "Probabilité": r["probability"] } for r in fed_monitor["rates"]])
+
+            # --- Plotly Graphique des Probabilités ---
+            ranges = [r["range"] for r in fed_monitor["rates"]]
+            # Convertit le texte en float (remplace la virgule par un point)
+            probs = [float(r["probability"].replace('%', '').replace(',', '.')) for r in fed_monitor["rates"]]
+
+            import plotly.graph_objects as go
+
+            fig = go.Figure(data=[
+                go.Bar(
+                    x=ranges,
+                    y=probs,
+                    text=[f"{p:.1f}%" for p in probs],
+                    textposition='outside',
+                    marker=dict(color='#3498db'),
+                    width=0.5
+                )
+            ])
+
+            fig.update_layout(
+                title="Probabilités de taux (%) - Prochaine réunion Fed",
+                xaxis_title="Range",
+                yaxis_title="Probabilité (%)",
+                yaxis=dict(range=[0, 100]),
+                plot_bgcolor='#22252A',
+                paper_bgcolor='#22252A',
+                font=dict(color='white', size=14),
+                bargap=0.25,
+                height=400
+            )
+
+            fig.update_traces(marker_line_color='white', marker_line_width=1.5)
+
+            st.plotly_chart(fig, use_container_width=True)
+            # Si tu veux garder l'ancien tableau en plus, décommente la ligne ci-dessous :
+            # st.table([{ "Range": r["range"], "Probabilité": r["probability"] } for r in fed_monitor["rates"]])
+        else:
+            st.warning("Données Fed Monitor non disponibles.")
     else:
         st.warning("Données Fed Monitor non disponibles.")
 
