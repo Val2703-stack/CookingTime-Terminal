@@ -95,7 +95,7 @@ def display():
                 title="Probabilités de taux (%) - Prochaine réunion Fed",
                 xaxis_title="Range",
                 yaxis_title="Probabilité (%)",
-                yaxis=dict(range=[0, 100]),
+                yaxis=dict(range=[0, max(probs)*1.15]),  # 15% de marge auto
                 plot_bgcolor='#22252A',
                 paper_bgcolor='#22252A',
                 font=dict(color='white', size=14),
