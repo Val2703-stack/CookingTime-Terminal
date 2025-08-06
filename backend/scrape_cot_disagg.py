@@ -6,7 +6,8 @@ import os
 from datetime import datetime
 
 # Dossier et chemin du CSV exporté
-local_csv = r"E:\VS code\Terminal Perso\frontend\data\cot_financial_full.csv"
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+local_csv = os.path.join(CURRENT_DIR, "..", "frontend", "data", "cot_financial_full.csv")
 
 def download_and_save_full_cot_financial(local_csv):
     year = datetime.now().year
